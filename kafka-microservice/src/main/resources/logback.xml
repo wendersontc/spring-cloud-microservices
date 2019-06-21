@@ -5,8 +5,6 @@
             <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
         </encoder>
     </appender>
-
-    <!-- This is the kafkaAppender -->
     <appender name="kafkaAppender" class="com.microservices.kafkamicroservice.config.KafkaAppender">
             <encoder>
                 <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
@@ -14,19 +12,9 @@
             <topic>tas_logs</topic>
             <keyingStrategy class="com.microservices.kafkamicroservice.keying.impl.NoKeyKeyingStrategy" />
             <deliveryStrategy class="com.microservices.kafkamicroservice.delivery.impl.AsynchronousDeliveryStrategy" />
-            
-            <!-- Optional parameter to use a fixed partition -->
-            <!-- <partition>0</partition> -->
-            
-            <!-- Optional parameter to include log timestamps into the kafka message -->
-            <!-- <appendTimestamp>true</appendTimestamp> -->
-
-            <!-- each <producerConfig> translates to regular kafka-client config (format: key=value) -->
-            <!-- producer configs are documented here: https://kafka.apache.org/documentation.html#newproducerconfigs -->
-            <!-- bootstrap.servers is the only mandatory producerConfig -->
+           
             <producerConfig>bootstrap.servers=localhost:9092</producerConfig>
 
-            <!-- this is the fallback appender if kafka is not available. -->
             <appender-ref ref="STDOUT" />
         </appender>
 

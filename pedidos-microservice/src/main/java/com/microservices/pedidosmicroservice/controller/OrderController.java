@@ -1,5 +1,7 @@
 package com.microservices.pedidosmicroservice.controller;
 
+import java.util.logging.Logger;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -11,9 +13,12 @@ import org.springframework.web.bind.annotation.RestController;
 import com.microservices.pedidosmicroservice.domain.Order;
 import com.microservices.pedidosmicroservice.service.OrderService;
 
+
 @RestController
 @RequestMapping(value = "/api/orders")
 public class OrderController {
+	
+	private final static Logger LOG = Logger.getLogger(OrderController.class.getName());
 
     @Autowired
     private OrderService orderService;
@@ -30,6 +35,7 @@ public class OrderController {
 
     @RequestMapping(method = RequestMethod.GET)
     public ResponseEntity<Iterable<Order>> findAll(){
+    	LOG.info(orderService.findAll().toString());
         return ResponseEntity.ok().body(orderService.findAll());
     }
 
